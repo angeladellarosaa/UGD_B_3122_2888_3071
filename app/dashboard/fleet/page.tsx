@@ -20,8 +20,6 @@ const vesselData = [
 export default function FleetOverview() {
   return (
     <div className="min-h-screen bg-[#0a0514] text-white font-mono p-8 pt-4 flex flex-col gap-6 relative">
-      
-      {/* STATS GRID - Margin top dikurangi agar lebih naik */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mt-8">
         {dashboardStats.map((s, i) => (
           <div key={i} className="bg-[#150e24] border border-white/5 p-6 rounded-3xl shadow-xl">
@@ -34,7 +32,6 @@ export default function FleetOverview() {
         ))}
       </div>
 
-      {/* ACTIVE FLEET SECTION - Jarak antar elemen diperketat */}
       <div className="flex-grow flex flex-col gap-4">
         <div className="flex justify-between items-center px-2">
           <h2 className="text-xs font-black uppercase tracking-widest text-white/80">Active Fleet Overview</h2>
@@ -49,7 +46,6 @@ export default function FleetOverview() {
           </div>
         </div>
 
-        {/* TABLE CONTAINER - Menggunakan flex-grow agar mengisi ruang yang naik */}
         <div className="bg-[#150e24]/30 border border-white/5 rounded-[2.5rem] overflow-hidden shadow-2xl">
           <table className="w-full text-left text-[10px]">
             <thead className="bg-white/5 text-gray-600 uppercase font-black tracking-[0.2em] border-b border-white/5">
@@ -80,7 +76,6 @@ export default function FleetOverview() {
         </div>
       </div>
 
-      {/* FLOATING ACTION BUTTON */}
       <button className="absolute bottom-8 right-8 w-12 h-12 bg-[#bc66ff] rounded-full flex items-center justify-center text-2xl font-black text-white shadow-[0_0_20px_#bc66ff66] hover:scale-110 transition-transform">
         +
       </button>

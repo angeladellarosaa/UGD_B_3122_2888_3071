@@ -1,7 +1,6 @@
 'use client';
 import React, { useState } from 'react';
 
-// === DATA KONSISTEN (5 KAPAL UTAMA) DENGAN SPESIFIKASI ===
 const vesselsList = [
   { id: "19910001", name: "MV NEON HORIZON", year: "2018", engine: "Dual-Core Plasma", color: "Obsidian Matte", tonnage: "184,000 GT", status: "EN ROUTE", statusColor: "text-emerald-400 border-emerald-400/30 bg-emerald-400/10", image: "🚢" },
   { id: "19910002", name: "MV OCEAN STAR", year: "2021", engine: "Ion-Drive S3", color: "Deep Chrome", tonnage: "210,500 GT", status: "DELAYED", statusColor: "text-rose-500 border-rose-500/30 bg-rose-500/10", image: "⚓" },
@@ -19,8 +18,7 @@ export default function VesselListPage() {
 
   return (
     <div className="min-h-screen bg-[#0a0514] text-white font-mono p-8 pt-4 space-y-8">
-      
-      {/* HEADER SECTION */}
+
       <div className="flex justify-between items-end">
         <div>
           <h1 className="text-4xl font-black uppercase tracking-tighter">All Vessels</h1>
@@ -39,7 +37,6 @@ export default function VesselListPage() {
         </div>
       </div>
 
-      {/* SEARCH BAR */}
       <div className="relative max-w-md">
         <input 
           type="text" 
@@ -51,11 +48,9 @@ export default function VesselListPage() {
         <span className="absolute left-4 top-2.5 opacity-30">🔍</span>
       </div>
 
-      {/* GRID CARDS */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {filteredVessels.map((v) => (
           <div key={v.id} className="bg-[#150e24] border border-white/5 rounded-[2.5rem] overflow-hidden group hover:border-[#bc66ff]/30 transition-all duration-500 shadow-2xl">
-            {/* Vessel Image Placeholder */}
             <div className="h-48 bg-gradient-to-b from-gray-800 to-[#150e24] relative flex items-center justify-center overflow-hidden">
                <div className="text-6xl opacity-20 group-hover:scale-110 transition-transform duration-700">{v.image}</div>
                <div className={`absolute top-4 right-4 px-3 py-1 rounded-full border text-[7px] font-black tracking-widest ${v.statusColor}`}>
@@ -64,7 +59,6 @@ export default function VesselListPage() {
                <div className="absolute inset-0 bg-gradient-to-t from-[#150e24] to-transparent"></div>
             </div>
 
-            {/* Vessel Info */}
             <div className="p-8 space-y-6">
               <div className="flex justify-between items-start">
                 <div>
@@ -101,7 +95,6 @@ export default function VesselListPage() {
           </div>
         ))}
 
-        {/* Action Card: Expand Fleet */}
         <div className="border-2 border-dashed border-white/5 rounded-[2.5rem] flex flex-col items-center justify-center p-8 text-center space-y-4 hover:border-[#bc66ff]/20 transition-all cursor-pointer bg-white/[0.01]">
           <div className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-xl text-[#bc66ff]">+</div>
           <div>

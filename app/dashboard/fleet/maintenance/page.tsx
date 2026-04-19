@@ -12,8 +12,6 @@ const maintenanceData = [
 export default function MaintenancePage() {
   return (
     <div className="min-h-screen bg-[#0a0514] text-white font-mono p-8 pt-4 space-y-8">
-      
-      {/* HEADER SECTION */}
       <div className="flex justify-between items-center">
         <h1 className="text-3xl font-black uppercase tracking-tighter">Maintenance</h1>
         <div className="flex items-center gap-2">
@@ -22,7 +20,6 @@ export default function MaintenancePage() {
         </div>
       </div>
 
-      {/* TOP STATS GRID */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
         <div className="bg-[#150e24] border border-white/5 p-6 rounded-3xl">
           <p className="text-[8px] text-gray-500 font-bold uppercase mb-4">Active Service</p>
@@ -47,9 +44,7 @@ export default function MaintenancePage() {
         </div>
       </div>
 
-      {/* MIDDLE SECTION: TIMELINE & INVENTORY */}
       <div className="grid grid-cols-12 gap-8">
-        {/* MAINTENANCE TIMELINE */}
         <div className="col-span-12 lg:col-span-8 bg-[#150e24] border border-white/5 rounded-[2.5rem] p-8 space-y-6">
           <div className="flex justify-between items-center">
             <h2 className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-500">Maintenance Timeline</h2>
@@ -74,7 +69,6 @@ export default function MaintenancePage() {
           </div>
         </div>
 
-        {/* CRITICAL INVENTORY */}
         <div className="col-span-12 lg:col-span-4 bg-[#150e24] border border-white/5 rounded-[2.5rem] p-8 flex flex-col justify-between">
           <h2 className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-500">Critical Inventory</h2>
           <div className="space-y-6 mt-6">
@@ -100,7 +94,6 @@ export default function MaintenancePage() {
         </div>
       </div>
 
-      {/* BOTTOM SECTION: STATUS CARDS */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {maintenanceData.slice(0, 4).map((m, i) => (
           <div key={i} className={`p-6 rounded-[2rem] border transition-all ${m.status === 'CRITICAL' ? 'bg-rose-500/5 border-rose-500/30' : 'bg-[#150e24] border-white/5'}`}>
