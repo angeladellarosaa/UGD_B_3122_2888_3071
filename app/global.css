@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Mantra penghilang putih-putih dan scrollbar liar */
+html, body {
+  background-color: #0a051a !important;
+  color: white;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* Biar gak bisa geser kanan-kiri */
+  min-height: 100vh;
+}
+
+/* Biar transisi scroll antar halaman mulus */
+html {
+  scroll-behavior: smooth;
+  color-scheme: dark; /* Ini supaya scrollbar otomatis jadi gelap */
+}
+
+/* Opsional: Sembunyikan scrollbar kalau kamu mau tampilan super clean */
+::-webkit-scrollbar {
+  display: none;
+}
+
+* {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}

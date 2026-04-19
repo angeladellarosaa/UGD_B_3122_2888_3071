@@ -1,20 +1,9 @@
-import Navbar from './components/Navbar';
-import HeroSection from './components/HeroSection';
-import AboutSection from './components/AboutSection';
-import VisionMission from './components/VisionMission';
-import OurServices from './components/OurServices';
-import ContactUs from './components/ContactUs';
+import HeroSection from '@/components/landing/HeroSection';
 
 export default function Home() {
   return (
     <main>
-      <Navbar />
       <HeroSection />
-      <AboutSection />
-      <VisionMission />
-      <OurServices />
-      <ContactUs />
     </main>
   );
 }
-

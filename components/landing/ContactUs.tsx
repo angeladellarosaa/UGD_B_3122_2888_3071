@@ -1,5 +1,4 @@
 'use client';
-import { robotoMono } from '@/app/ui/fonts';
 
 export default function ContactUs() {
   const contactInfo = [
@@ -42,7 +41,7 @@ export default function ContactUs() {
 
   return (
     // Padding-top diubah ke pt-36 agar posisi konten naik sedikit lagi
-    <section id="contact" className={`${robotoMono.className} w-full bg-[#0a0514] text-white pt-36 pb-28 px-6 md:px-20 min-h-screen`}>
+    <section id="contact" className="w-full bg-[#0a0514] text-white pt-36 pb-28 px-6 md:px-20 min-h-screen">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
           
@@ -81,7 +80,7 @@ export default function ContactUs() {
           <div className="h-full flex items-center justify-center lg:mt-12">
             <div className="w-full h-[600px] overflow-hidden">
               <img 
-                src="/contactus.jpeg" 
+                src="https://images.unsplash.com/photo-1559136555-9303baea8ebd?q=80&w=2000" 
                 alt="Workspace" 
                 className="w-full h-full object-cover grayscale-[20%]" 
               />
