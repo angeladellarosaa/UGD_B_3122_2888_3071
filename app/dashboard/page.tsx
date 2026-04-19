@@ -1,169 +1,207 @@
 'use client';
-import React, { useState } from 'react';
 
-const dashboardStats = [
-  { label: "TOTAL VESSELS", value: "124", sub: "+3.2%" },
-  { label: "IN PORT", value: "18", sub: "VESSEL" },
-  { label: "FUEL AVG", value: "82%", sub: "-1.4%" },
-  { label: "ETA HEALTH", value: "96%", sub: "OPTIMAL", highlight: true },
-];
+import React from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { robotoMono } from '@/app/ui/fonts';
+import { 
+  MagnifyingGlassIcon,
+  ExclamationTriangleIcon,
+  CloudIcon,
+  ClockIcon
+} from '@heroicons/react/24/outline';
 
 const vesselData = [
-  { id: "19910001", name: "NEON HORIZON", status: "EN ROUTE", statusColor: "bg-emerald-500", fuel: 78, fuelStatus: "OPTIMAL", destination: "SINGAPORE TERMINAL 2" },
-  { id: "19910002", name: "OCEAN STAR", status: "MAINTENANCE", statusColor: "bg-rose-500", fuel: 22, fuelStatus: "CRITICAL", destination: "ROTTERDAM PIER 4" },
-  { id: "20030003", name: "SEA VOYAGER", status: "IN PORT", statusColor: "bg-indigo-500", fuel: 95, fuelStatus: "FULL", destination: "LOS ANGELES TERMINAL 1" },
-  { id: "20040004", name: "ARCTIC GALE", status: "EN ROUTE", statusColor: "bg-emerald-500", fuel: 64, fuelStatus: "OPTIMAL", destination: "HAMBURG GATE C" },
-  { id: "20050005", name: "PACIFIC DRIFT", status: "ANCHORAGE", statusColor: "bg-amber-500", fuel: 45, fuelStatus: "LOW", destination: "TOKYO BAY" },
+  { id: "19910001", name: "NEON HORIZON", status: "EN ROUTE", statusColor: "bg-emerald-500", fuel: "78%", fuelStatus: "OPTIMAL", destination: "SINGAPORE TERMINAL 2" },
+  { id: "19910002", name: "OCEAN STAR", status: "MAINTENANCE", statusColor: "bg-rose-500", fuel: "22%", fuelStatus: "CRITICAL", destination: "ROTTERDAM PIER 4" },
+  { id: "20030003", name: "SEA VOYAGER", status: "IN PORT", statusColor: "bg-indigo-500", fuel: "95%", fuelStatus: "FULL", destination: "LOS ANGELES TERMINAL 1" },
+  { id: "20040004", name: "ARCTIC GALE", status: "EN ROUTE", statusColor: "bg-emerald-500", fuel: "64%", fuelStatus: "OPTIMAL", destination: "HAMBURG GATE C" },
+  { id: "20050005", name: "PACIFIC DRIFT", status: "ANCHORAGE", statusColor: "bg-amber-500", fuel: "45%", fuelStatus: "LOW", destination: "TOKYO BAY" },
 ];
 
-const alertsData = [
-  { type: "CRITICAL", title: "Critical Engine Failure", time: "04:12 WIB", color: "rose" },
-  { type: "WARNING", title: "Weather Warning", time: "02:45 WIB", color: "purple" },
-  { type: "INFO", title: "ETA Delay Prediction", time: "01:15 WIB", color: "gray" },
-];
-
-const chartPerformance = [
-  { name: "NEON", val: 85 },
-  { name: "OCEAN", val: 40 },
-  { name: "SEA", val: 95 },
-  { name: "ARCTIC", val: 70 },
-  { name: "PACIFIC", val: 55 },
-];
-
-export default function FleetDashboard() {
-  const [searchTerm, setSearchTerm] = useState('');
-
-  const filteredVessels = vesselData.filter(v => 
-    v.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
-    v.id.includes(searchTerm)
-  );
-
+export default function DashboardPage() {
   return (
-    <div className="min-h-screen bg-[#0a0514] text-white font-mono p-4 lg:p-8 space-y-8">
-      
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        {dashboardStats.map((s, i) => (
-          <div key={i} className="bg-[#150e24] border border-white/5 p-6 rounded-[1.5rem] shadow-2xl hover:border-[#bc66ff]/20 transition-all">
-            <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-gray-500 mb-3">{s.label}</p>
+    <div className={`min-h-screen bg-[#0d0415] text-white p-6 ${robotoMono.className}`}>
+
+      {/* --- QUICK STATS --- */}
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+        {[
+          { label: "TOTAL VESSELS", value: "124", sub: "+3.2%" },
+          { label: "IN PORT", value: "18", sub: "VESSEL" },
+          { label: "FUEL AVG", value: "82%", sub: "-1.4%" },
+          { label: "ETA HEALTH", value: "96%", sub: "OPTIMAL", highlight: true },
+        ].map((stat, i) => (
+          <div key={i} className="bg-[#1a0b2e] p-5 rounded-[20px] border border-white/5">
+            <p className="text-[9px] tracking-widest text-gray-500 mb-2 uppercase">{stat.label}</p>
             <div className="flex items-baseline gap-2">
-              <span className="text-3xl font-black tracking-tighter">{s.value}</span>
-              <span className={`text-[9px] font-black ${s.highlight ? 'text-[#bc66ff]' : 'text-gray-600'}`}>{s.sub}</span>
+              <span className={`text-2xl font-bold ${stat.highlight ? 'text-[#d095ff]' : 'text-white'}`}>{stat.value}</span>
+              <span className="text-[9px] text-gray-400 font-medium">{stat.sub}</span>
             </div>
           </div>
         ))}
       </div>
 
-      <div className="grid grid-cols-12 gap-6">
-        <div className="col-span-12 lg:col-span-8 flex flex-col space-y-3">
-          <h2 className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-500 px-2">Global Tracking</h2>
-          <div className="h-[350px] bg-[#150e24] rounded-[2rem] border border-white/5 overflow-hidden relative">
-            <iframe 
-                width="100%" 
-                height="100%" 
-                frameBorder="0" 
-                src="about:blank" 
-                className="grayscale invert contrast-125 opacity-20 scale-110"
-                title="Global Vessel Map"
-            ></iframe>
-            <div className="absolute bottom-6 left-6 bg-black/60 backdrop-blur-md p-4 rounded-xl border border-white/10">
-               <p className="text-[8px] text-[#bc66ff] font-bold uppercase">System Status</p>
-               <p className="text-[10px] font-black italic uppercase">All Systems Operational</p>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+        {/* --- GLOBAL MAP --- */}
+        <div className="lg:col-span-2">
+          <h2 className="text-[13px] font-extrabold tracking-[0.25em] mb-4 text-white uppercase">GLOBAL MAP</h2>
+          <div className="bg-[#1a0b2e] rounded-[32px] border border-white/5 relative h-[450px] overflow-hidden">
+            <div className="absolute top-6 left-6 z-10 bg-black/60 backdrop-blur-md px-4 py-2 rounded-full border border-white/10 flex items-center gap-2">
+              <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+              <span className="text-[9px] tracking-widest font-bold">LIVE FEED: ATLANTIC SECTOR 4</span>
+            </div>
+            
+            <Image 
+              src="/globalmap.png" 
+              alt="Global Fleet Map" 
+              fill 
+              className="object-cover opacity-60"
+            />
+
+            <div className="absolute bottom-6 right-6 text-right bg-black/60 backdrop-blur-md p-4 rounded-2xl border border-white/5">
+              <p className="text-[8px] text-gray-500 uppercase font-bold">Selected Vessel</p>
+              <p className="text-xs font-bold text-[#d095ff]">MV NEON HORIZON</p>
+              <p className="text-[9px] text-gray-400">LOCATION: TANJUNG PRIOK</p>
             </div>
           </div>
         </div>
 
-        <div className="col-span-12 lg:col-span-4 flex flex-col space-y-3">
-          <h2 className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-500 px-2">System Alerts</h2>
-          <div className="bg-[#150e24]/40 border border-white/5 rounded-[2rem] p-5 space-y-3 h-[350px] overflow-y-auto">
-            {alertsData.map((alert, i) => (
-              <div key={i} className="p-4 rounded-xl bg-white/[0.02] border border-white/5 hover:border-white/10 transition-all">
-                <div className="flex justify-between items-center mb-2">
-                  <span className={`text-[8px] font-black px-2 py-0.5 rounded border border-current ${alert.color === 'rose' ? 'text-rose-500' : 'text-[#bc66ff]'}`}>{alert.type}</span>
-                  <span className="text-[8px] text-gray-600 font-bold">{alert.time}</span>
+        {/* --- SYSTEM ALERTS --- */}
+        <div className="flex flex-col">
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-[13px] font-extrabold tracking-[0.25em] text-white uppercase">SYSTEM ALERTS</h2>
+            <span className="bg-rose-500 text-white text-[8px] px-2 py-0.5 rounded-sm font-bold">3 ACTIVE</span>
+          </div>
+          <div className="bg-[#1a0b2e] rounded-[32px] border border-white/5 p-6 flex-grow">
+            <div className="space-y-4">
+              <div className="flex gap-4 p-4 bg-rose-500/10 border-l-2 border-rose-500 rounded-r-2xl">
+                <ExclamationTriangleIcon className="w-5 h-5 text-rose-500 shrink-0" />
+                <div>
+                  <div className="flex justify-between items-center mb-1">
+                    <p className="text-[9px] font-bold text-rose-500 uppercase">Critical Engine Failure</p>
+                    <p className="text-[8px] text-gray-500">04:12 WIB</p>
+                  </div>
+                  <p className="text-[10px] text-gray-400 leading-relaxed">
+                    MV ORION STAR reports pressure drop in Cylinder 4. Emergency maintenance required.
+                  </p>
                 </div>
-                <p className="text-white text-[10px] font-bold uppercase">{alert.title}</p>
               </div>
-            ))}
+
+              <div className="flex gap-4 p-4 bg-white/5 border-l-2 border-[#d095ff] rounded-r-2xl">
+                <CloudIcon className="w-5 h-5 text-[#d095ff] shrink-0" />
+                <div>
+                  <div className="flex justify-between items-center mb-1">
+                    <p className="text-[9px] font-bold text-[#d095ff] uppercase">Weather Warning</p>
+                    <p className="text-[8px] text-gray-500">02:45 WIB</p>
+                  </div>
+                  <p className="text-[10px] text-gray-400 leading-relaxed">
+                    Cyclone approaching Route A7. Recommend detour +12nm East.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex gap-4 p-4 bg-white/5 border-l-2 border-gray-500 rounded-r-2xl">
+                <ClockIcon className="w-5 h-5 text-gray-400 shrink-0" />
+                <div>
+                  <div className="flex justify-between items-center mb-1">
+                    <p className="text-[9px] font-bold text-gray-400 uppercase">ETA Delay Prediction</p>
+                    <p className="text-[8px] text-gray-500">01:15 WIB</p>
+                  </div>
+                  <p className="text-[10px] text-gray-400 leading-relaxed">
+                    Port Rotterdam congestion: +4h wait time for all incoming vessels.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/*BUTTON alert*/}
+            <Link href="/alerts">
+              <button className="w-full mt-6 py-2.5 bg-white/5 border border-white/10 rounded-[100px] text-[9px] font-bold tracking-[0.2em] hover:bg-white/10 transition-all uppercase">
+                View All Logs
+              </button>
+            </Link>
+
           </div>
         </div>
       </div>
 
-      <div className="grid grid-cols-12 gap-6">
-        <div className="col-span-12 lg:col-span-8 space-y-3">
-          <div className="flex flex-col sm:row justify-between items-start sm:items-center gap-4 px-2">
-            <h2 className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-500">Active Fleet Overview</h2>
-            <div className="relative w-full sm:w-64">
+      {/* --- ACTIVE VESSEL & FLEET PERFORMANCE --- */}
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+        <div className="lg:col-span-3 bg-[#1a0b2e] rounded-[32px] border border-white/5 overflow-hidden">
+          <div className="p-6 flex justify-between items-center">
+            <h2 className="text-[13px] font-extrabold tracking-[0.25em] text-white uppercase">Active Vessel</h2>
+            <div className="relative">
+              <MagnifyingGlassIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-500" />
               <input 
                 type="text" 
                 placeholder="SEARCH VESSEL..." 
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full bg-[#150e24] border border-white/10 rounded-full py-2 px-10 text-[9px] font-bold text-white focus:outline-none focus:border-[#bc66ff] transition-all"
+                className="bg-black/40 border border-white/10 rounded-full pl-9 pr-4 py-2 text-[9px] w-56 outline-none focus:border-[#d095ff]/50"
               />
-              <svg className="absolute left-4 top-2.5 text-gray-600" width="12" height="12" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
             </div>
           </div>
 
-          <div className="bg-[#150e24]/60 rounded-[2rem] border border-white/5 overflow-hidden shadow-2xl">
-            <table className="w-full text-left text-[10px]">
-              <thead className="bg-white/5 text-gray-500 font-bold uppercase tracking-widest">
-                <tr>
-                  <th className="px-6 py-4">Vessel Name</th>
-                  <th className="px-6 py-4">Status</th>
-                  <th className="px-6 py-4">Fuel Status</th>
-                  <th className="px-6 py-4">Destination</th>
+          <table className="w-full text-left">
+            <thead className="text-[9px] text-gray-500 uppercase tracking-widest bg-white/5">
+              <tr>
+                <th className="px-8 py-3 font-medium">Vessel Identifier</th>
+                <th className="px-8 py-3 font-medium">Operational Status</th>
+                <th className="px-8 py-3 font-medium">Fuel Reserve</th>
+                <th className="px-8 py-3 font-medium">Destination</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-white/5">
+              {vesselData.map((v) => (
+                <tr key={v.id} className="hover:bg-white/5 transition-all">
+                  <td className="px-8 py-4">
+                    <div className="font-bold text-[11px]">{v.name}</div>
+                    <div className="text-[9px] text-gray-500">ID: {v.id}</div>
+                  </td>
+                  <td className="px-8 py-4">
+                    <div className="flex items-center gap-2">
+                      <div className={`w-1.5 h-1.5 rounded-full ${v.statusColor}`} />
+                      <span className="text-[9px] font-bold">{v.status}</span>
+                    </div>
+                  </td>
+                  <td className="px-8 py-4">
+                    <div className="w-28">
+                      <div className="flex justify-between text-[8px] mb-1 font-bold">
+                        <span>{v.fuel}</span>
+                        <span className="text-gray-500">{v.fuelStatus}</span>
+                      </div>
+                      <div className="h-1 w-full bg-white/5 rounded-full">
+                        <div className="h-full bg-[#d095ff]" style={{ width: v.fuel }} />
+                      </div>
+                    </div>
+                  </td>
+                  <td className="px-8 py-4 text-[10px] text-gray-400">{v.destination}</td>
                 </tr>
-              </thead>
-              <tbody className="divide-y divide-white/5">
-                {filteredVessels.map((v) => (
-                  <tr key={v.id} className="hover:bg-white/[0.03] transition-colors group">
-                    <td className="px-6 py-4">
-                      <p className="text-white font-black group-hover:text-[#bc66ff] transition-colors">{v.name}</p>
-                      <p className="text-[8px] text-gray-600 font-bold uppercase">ID: {v.id}</p>
-                    </td>
-                    <td className="px-6 py-4">
-                      <div className="flex items-center gap-2">
-                        <span className={`w-1.5 h-1.5 rounded-full ${v.statusColor}`}></span>
-                        <span className="text-gray-300 font-bold uppercase">{v.status}</span>
-                      </div>
-                    </td>
-                    <td className="px-6 py-4">
-                      <div className="w-24 h-1 bg-white/5 rounded-full mb-1 overflow-hidden">
-                        <div className={`h-full ${v.fuelStatus === 'CRITICAL' ? 'bg-rose-500' : 'bg-[#bc66ff]'}`} style={{ width: `${v.fuel}%` }}></div>
-                      </div>
-                      <span className="text-[8px] font-bold text-gray-600 uppercase italic">{v.fuelStatus} // {v.fuel}%</span>
-                    </td>
-                    <td className="px-6 py-4 text-gray-500 font-bold uppercase italic text-[9px]">{v.destination}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+              ))}
+            </tbody>
+          </table>
         </div>
 
-        <div className="col-span-12 lg:col-span-4 space-y-3">
-          <h2 className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-500 px-2">Fleet Performance</h2>
-          <div className="bg-[#150e24] rounded-[2rem] border border-white/5 p-6 flex flex-col justify-between h-full min-h-[380px]">
-            <div className="flex items-end justify-between gap-2 h-40 mb-8 px-2">
-              {chartPerformance.map((p, i) => (
-                <div key={i} className="flex-1 flex flex-col items-center group">
-                  <div 
-                    style={{ height: `${p.val}%` }} 
-                    className={`w-full rounded-t-md transition-all duration-700 ${p.val > 80 ? 'bg-[#bc66ff] shadow-[0_0_15px_rgba(188,102,255,0.2)]' : 'bg-white/10 group-hover:bg-white/20'}`}
-                  ></div>
-                  <span className="mt-3 text-[7px] text-gray-700 font-black uppercase text-center">{p.name}</span>
-                </div>
+        {/* Fleet Performance */}
+        <div className="flex flex-col gap-4">
+          <h2 className="text-[13px] font-extrabold tracking-[0.25em] text-white uppercase">Fleet Performance</h2>
+          <div className="bg-[#1a0b2e] rounded-[32px] border border-white/5 p-6 flex-grow">
+            <div className="flex items-end justify-between h-36 gap-2 mb-6 px-2">
+              {[45, 65, 50, 95, 70, 55, 85].map((h, i) => (
+                <div 
+                  key={i} 
+                  className={`w-full rounded-t-sm ${i === 3 ? 'bg-[#d095ff]' : 'bg-white/10'}`} 
+                  style={{ height: `${h}%` }} 
+                />
               ))}
             </div>
-            <div className="space-y-2">
-               <div className="bg-black/20 p-3 rounded-xl border border-white/5 flex justify-between items-center">
-                  <span className="text-[8px] text-gray-500 font-bold uppercase">Efficiency</span>
-                  <span className="text-lg font-black text-white">94.2%</span>
-               </div>
-               <div className="bg-black/20 p-3 rounded-xl border border-white/5 flex justify-between items-center">
-                  <span className="text-[8px] text-gray-500 font-bold uppercase">Avg Idle</span>
-                  <span className="text-lg font-black text-white">0.4h</span>
-               </div>
+            <div className="grid grid-cols-2 gap-3">
+              <div className="bg-[#221c33] p-4 rounded-xl border border-white/5">
+                <p className="text-[8px] text-gray-500 uppercase font-bold mb-1">Efficiency</p>
+                <p className="text-sm font-bold">94.2%</p>
+              </div>
+              <div className="bg-[#221c33] p-4 rounded-xl border border-white/5">
+                <p className="text-[8px] text-gray-500 uppercase font-bold mb-1">Idle Time</p>
+                <p className="text-sm font-bold">0.4h</p>
+              </div>
             </div>
           </div>
         </div>

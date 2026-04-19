@@ -71,10 +71,13 @@ export default function DashboardNav() {
 
   return (
     <header className="fixed top-0 inset-x-0 h-20 z-[1000] flex justify-between items-center px-8 border-b border-purple-900/20 bg-[#0d0716]/80 backdrop-blur-md">
+      
+      {/* BRANDING */}
       <div className="w-1/4 text-[#bc66ff] font-bold uppercase tracking-[0.3em] text-[10px]">
         PT. Samudra Technology Nusantara
       </div>
 
+      {/* CENTER NAVIGATION */}
       <nav className="flex justify-center gap-10 h-full text-[10px] font-bold uppercase tracking-[0.2em]">
         {menuItems.map((item) => {
           const active = isActive(item);
@@ -85,22 +88,27 @@ export default function DashboardNav() {
               onMouseEnter={() => item.submenu && handleMouseEnter(item.name)}
               onMouseLeave={handleMouseLeave}
             >
-              <Link 
-                href={item.path} 
-                className={`${active ? 'text-white' : 'text-gray-500 hover:text-white'} flex items-center gap-1 transition-all duration-300 h-full`}
-              >
-                {item.name}
-                {item.submenu && (
-                  <svg className={`transition-transform duration-300 ${openDropdown === item.name ? 'rotate-180' : ''}`} width="10" height="10" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                    <path d="m6 9 6 6 6-6"/>
-                  </svg>
+              {/* Container relatif baru agar garis indikator mepet ke teks */}
+              <div className="relative py-1">
+                <Link 
+                  href={item.path} 
+                  className={`${active ? 'text-white' : 'text-gray-500 hover:text-white'} flex items-center gap-1 transition-all duration-300`}
+                >
+                  {item.name}
+                  {item.submenu && (
+                    <svg className={`transition-transform duration-300 ${openDropdown === item.name ? 'rotate-180' : ''}`} width="10" height="10" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                      <path d="m6 9 6 6 6-6"/>
+                    </svg>
+                  )}
+                </Link>
+
+                {/* Indikator Aktif (Garis Ungu) - Sekarang mepet di bawah teks */}
+                {active && (
+                  <div className="absolute -bottom-2 inset-x-0 h-[2px] bg-[#bc66ff] shadow-[0_0_15px_#bc66ff] z-50 transition-all duration-300"></div>
                 )}
-              </Link>
+              </div>
 
-              {active && (
-                <div className="absolute bottom-[-1px] inset-x-0 h-[2px] bg-[#bc66ff] shadow-[0_0_15px_#bc66ff] z-50"></div>
-              )}
-
+              {/* DROPDOWN MENU */}
               {item.submenu && openDropdown === item.name && (
                 <div className="absolute top-[80px] left-1/2 -translate-x-1/2 w-48 pt-2">
                   <div className="bg-[#150e24] border border-white/10 rounded-xl overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.8)] backdrop-blur-xl">
@@ -123,12 +131,20 @@ export default function DashboardNav() {
         })}
       </nav>
 
+      {/* RIGHT SIDE */}
       <div className="w-1/4 flex justify-end items-center gap-6">
-        <div className="flex items-center gap-4 pr-6 border-r border-white/10 text-gray-500">
-          <button className="hover:text-white relative">
-            <span className="absolute -top-1 -right-1 w-1.5 h-1.5 bg-red-500 rounded-full animate-pulse"></span>
-            <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-          </button>
+        <div className="flex items-center gap-4 pr-6 border-r border-white/10">
+          <Link 
+            href="/dashboard/alerts" 
+            className={`relative transition-all duration-300 hover:scale-110 ${
+              pathname === '/dashboard/alerts' ? 'text-[#bc66ff]' : 'text-gray-500 hover:text-white'
+            }`}
+          >
+            <span className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full animate-pulse shadow-[0_0_10px_#ef4444]"></span>
+            <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0"/>
+            </svg>
+          </Link>
         </div>
 
         <div className="flex items-center gap-3">

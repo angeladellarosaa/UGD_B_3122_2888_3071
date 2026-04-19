@@ -12,8 +12,8 @@ export default function LoginPage() {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    const CORRECT_EMAIL = "beni@samudratechnusantara.ac.id";
-    const CORRECT_PASSWORD = "benisipalingganteng";
+    const CORRECT_EMAIL = "beni@gmail.com";
+    const CORRECT_PASSWORD = "beni123";
     
     let emailError = '';
     let passwordError = '';

@@ -22,7 +22,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           !isAuthPage && <Navbar />
         )}
 
-        <main className={`relative w-full ${isDashboard ? "pt-20" : ""}`}>
+        {/* Main di sini dibuat bersih (pt-0) */}
+        <main className="relative w-full">
           {children}
         </main>
         
