@@ -6,8 +6,6 @@ import MyLogo from '@/public/logo.png';
 export default function HeroSection() {
   return (
     <div id="home" className="relative min-h-screen w-full overflow-hidden bg-[#0a051a] text-white font-sans">
-      
-      {/* BACKGROUND */}
       <div className="absolute inset-0 z-0">
         <div 
           className="absolute inset-0 bg-cover bg-center opacity-40"
@@ -17,21 +15,17 @@ export default function HeroSection() {
       </div>
 
       <main className="relative z-10 flex flex-col items-center justify-center text-center px-4 h-screen">
-        
-        {/* LOGO CONTAINER */}
         <div className="mb-8 text-[#bc66ff] drop-shadow-[0_0_20px_rgba(188,102,255,0.6)]">
           <Image 
             src={MyLogo} 
             alt="Samudra Tech Logo"
-            // UBAH UKURAN DI SINI
-            width={140}   // Ukuran sedang, tidak terlalu besar tapi jelas
-            height={140}  // Samakan agar proporsional
+            width={140}   
+            height={140} 
             className="object-contain hover:scale-110 transition-transform duration-500" // Tambah efek hover dikit biar cakep
             priority 
           />
         </div>
         
-        {/* TITLE */}
         <h1 className="text-5xl md:text-[85px] font-[900] mb-6 tracking-tight leading-[1] text-[#f5f0ff]">
           PT. SAMUDRA <br /> 
           TECHNOLOGY <br /> 
@@ -47,7 +41,6 @@ export default function HeroSection() {
         </button>
       </main>
 
-      {/* SCROLL INDICATOR */}
       <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 opacity-50">
         <div className="w-5 h-9 border-[1.5px] border-white/60 rounded-full flex justify-center p-1.5">
           <div className="w-1 h-1.5 bg-white rounded-full animate-bounce" />

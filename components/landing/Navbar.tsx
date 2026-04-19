@@ -20,13 +20,10 @@ export default function Navbar() {
       ${isScrolled ? 'bg-[#0a051a]/90 backdrop-blur-md border-b border-white/10 py-4' : 'bg-transparent'}`}
     >
       <div className="max-w-7xl mx-auto flex justify-between items-center">
-        
-        {/* Logo */}
         <Link href="/" className="flex-shrink-0 text-3xl font-black tracking-tighter text-white cursor-pointer hover:opacity-80 transition-opacity">
           SAMUDRA<span className="text-[#bc66ff]">TECH</span>
         </Link>
 
-        {/* Menu Navigasi */}
         <div className="hidden md:flex gap-8 lg:gap-12 items-center justify-center flex-1">
           {[
             { name: "Home", path: "/" },
@@ -45,7 +42,6 @@ export default function Navbar() {
           ))}
         </div>
 
-        {/* Button Login */}
         <div className="flex-shrink-0 hidden md:block">
           <Link 
             href="/login"

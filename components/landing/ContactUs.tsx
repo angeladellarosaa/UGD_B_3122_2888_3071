@@ -40,7 +40,6 @@ export default function ContactUs() {
   ];
 
   return (
-    // Padding-top diubah ke pt-36 agar posisi konten naik sedikit lagi
     <section id="contact" className="w-full bg-[#0a0514] text-white pt-36 pb-28 px-6 md:px-20 min-h-screen">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">

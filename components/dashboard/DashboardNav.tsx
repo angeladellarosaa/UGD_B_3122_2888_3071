@@ -71,12 +71,10 @@ export default function DashboardNav() {
 
   return (
     <header className="fixed top-0 inset-x-0 h-20 z-[1000] flex justify-between items-center px-8 border-b border-purple-900/20 bg-[#0d0716]/80 backdrop-blur-md">
-      {/* LEFT: LOGO */}
       <div className="w-1/4 text-[#bc66ff] font-bold uppercase tracking-[0.3em] text-[10px]">
         PT. Samudra Technology Nusantara
       </div>
 
-      {/* CENTER: NAVIGATION */}
       <nav className="flex justify-center gap-10 h-full text-[10px] font-bold uppercase tracking-[0.2em]">
         {menuItems.map((item) => {
           const active = isActive(item);
@@ -99,12 +97,10 @@ export default function DashboardNav() {
                 )}
               </Link>
 
-              {/* HIGHLIGHT LINE (Garis bawah menyala) */}
               {active && (
                 <div className="absolute bottom-[-1px] inset-x-0 h-[2px] bg-[#bc66ff] shadow-[0_0_15px_#bc66ff] z-50"></div>
               )}
 
-              {/* DROPDOWN MENU */}
               {item.submenu && openDropdown === item.name && (
                 <div className="absolute top-[80px] left-1/2 -translate-x-1/2 w-48 pt-2">
                   <div className="bg-[#150e24] border border-white/10 rounded-xl overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.8)] backdrop-blur-xl">
@@ -127,7 +123,6 @@ export default function DashboardNav() {
         })}
       </nav>
 
-      {/* RIGHT: PROFILE */}
       <div className="w-1/4 flex justify-end items-center gap-6">
         <div className="flex items-center gap-4 pr-6 border-r border-white/10 text-gray-500">
           <button className="hover:text-white relative">

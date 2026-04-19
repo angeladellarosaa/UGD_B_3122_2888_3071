@@ -12,10 +12,8 @@ export default function AboutSection() {
   return (
     <section 
       id="about" 
-      /* h-screen + flex items-center membuat konten pas di tengah 1 halaman */
       className="relative h-screen w-full bg-[#0a051a] text-white flex items-center px-10 md:px-20 overflow-hidden"
     >
-      {/* Dekorasi Garis Kiri */}
       <div className="absolute left-5 top-1/4 opacity-20 hidden md:block">
         <div className="space-y-2">
           {[1, 2, 3].map((i) => (
@@ -26,7 +24,6 @@ export default function AboutSection() {
 
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center z-10">
         
-        {/* Kolom Teks */}
         <div>
           <span className="text-[#bc66ff] text-[10px] font-bold tracking-[0.3em] uppercase mb-3 block">
             Who We Are
@@ -45,7 +42,6 @@ export default function AboutSection() {
             </p>
           </div>
 
-          {/* Stats Grid - Diperkecil padding-nya agar hemat tempat */}
           <div className="grid grid-cols-3 gap-4 mt-10 pt-8 border-t border-purple-900/40">
             {stats.map((stat, index) => (
               <div 
@@ -65,7 +61,6 @@ export default function AboutSection() {
           </div>
         </div>
 
-        {/* Kolom Gambar - Ketinggian disesuaikan agar tidak overscroll */}
         <div className="relative group hidden lg:block">
           <div className="absolute -inset-4 bg-purple-600/10 rounded-[2rem] blur-2xl group-hover:bg-[#bc66ff]/20 transition-all duration-500"></div>
           <div className="relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
@@ -79,7 +74,6 @@ export default function AboutSection() {
         </div>
       </div>
 
-      {/* Dekorasi Garis Kanan */}
       <div className="absolute right-5 bottom-1/4 opacity-20 hidden md:block">
         <div className="space-y-2">
           {[1, 2, 3].map((i) => (
