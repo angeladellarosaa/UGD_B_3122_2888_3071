@@ -601,5 +601,5 @@ export const alerts = [
   { type: "WARNING", title: "Weather Warning", time: "02:45 WIB", desc: "Cyclone approaching Sector 7G.", color: "purple" },
 ];
 
-export const chartData = [40, 70, 55, 90, 60, 75, 50, 85, 65, 95, 45, 80];
-export const chartLabels = ["MAY 01", "MAY 08", "MAY 15", "MAY 22", "MAY 30"];
+export const chartData = [85, 28, 62, 91, 45]; 
+export const chartLabels = ["NEON", "STAR", "VOYAGER", "GALE", "DRIFT"];

@@ -1,89 +1,93 @@
 "use client";
 
 import React from "react";
-// Import data asli
 import { maintenanceData } from "@/app/lib/placeholder-data";
 
 export default function DonutChart() {
-  // 1. HITUNG DATA SECARA DINAMIS
   const total = maintenanceData.length;
   
-  // Menghitung jumlah per kategori (Sesuai status atau bisa kamu ganti ke 'type' jika ada)
   const activeCount = maintenanceData.filter(d => d.status === "ACTIVE").length;
   const criticalCount = maintenanceData.filter(d => d.status === "CRITICAL").length;
-  const plannedCount = maintenanceData.filter(d => d.status === "PLANNED").length;
+  const plannedCount = total - (activeCount + criticalCount);
 
-  // Rumus Keliling Lingkaran SVG (r=40, maka C = 2 * PI * 40 = 251.2)
   const strokeDasharray = 251.2;
   
-  // Hitung offset untuk masing-masing (dalam contoh ini kita buat perbandingan ACTIVE vs Total)
-  const activePercentage = (activeCount / total) * 100;
-  const activeOffset = strokeDasharray - (activePercentage / 100) * strokeDasharray;
+  const activePct = (activeCount / total) * 100;
+  const criticalPct = (criticalCount / total) * 100;
+  const plannedPct = (plannedCount / total) * 100;
+
+  const activeOffset = strokeDasharray - (activePct / 100) * strokeDasharray;
+  const criticalOffset = strokeDasharray - ((activePct + criticalPct) / 100) * strokeDasharray;
 
   return (
-    <div className="glass p-8 flex flex-col items-center justify-center relative rounded-[2rem] bg-[#150e24]/40 border border-white/5 backdrop-blur-xl">
+    <div className="w-full h-full flex flex-col items-center justify-center relative p-8 bg-transparent">
       
-      <p className="text-[10px] font-black opacity-40 mb-8 tracking-[0.3em] uppercase">
+      <p className="text-[10px] font-black opacity-40 mb-10 tracking-[0.4em] uppercase text-gray-500">
         Fleet Allocation
       </p>
 
-      {/* CHART CONTAINER */}
-      <div className="relative w-40 h-40 flex items-center justify-center">
-        {/* SVG Circle System */}
+      <div className="relative w-44 h-44 flex items-center justify-center">
         <svg viewBox="0 0 100 100" className="w-full h-full -rotate-90 overflow-visible">
-          {/* Background Circle (Track) */}
           <circle 
             cx="50" cy="50" r="40" 
-            stroke="currentColor" strokeWidth="10" 
+            stroke="currentColor" strokeWidth="12" 
             fill="none" className="text-white/5" 
           />
           
-          {/* Active Data Segment (Purple) */}
           <circle 
             cx="50" cy="50" r="40" 
-            stroke="#bc66ff" strokeWidth="10" 
+            stroke="#818cf8" strokeWidth="12" 
+            fill="none" 
+            strokeDasharray={strokeDasharray}
+            strokeDashoffset={0} 
+            strokeLinecap="round"
+            className="transition-all duration-1000 ease-out"
+          />
+
+          <circle 
+            cx="50" cy="50" r="40" 
+            stroke="#f43f5e" strokeWidth="12" 
+            fill="none" 
+            strokeDasharray={strokeDasharray}
+            strokeDashoffset={criticalOffset}
+            strokeLinecap="round"
+            className="transition-all duration-1000 ease-out drop-shadow-[0_0_8px_rgba(244,63,94,0.3)]"
+          />
+
+          <circle 
+            cx="50" cy="50" r="40" 
+            stroke="#bc66ff" strokeWidth="12" 
             fill="none" 
             strokeDasharray={strokeDasharray}
             strokeDashoffset={activeOffset}
             strokeLinecap="round"
-            className="transition-all duration-1000 ease-out drop-shadow-[0_0_8px_rgba(188,102,255,0.5)]"
+            className="transition-all duration-1000 ease-out drop-shadow-[0_0_12px_rgba(188,102,255,0.5)]"
           />
         </svg>
 
-        {/* Center Text */}
         <div className="absolute inset-0 flex flex-col items-center justify-center">
-          <span className="text-2xl font-black italic italic leading-none">{total}</span>
-          <span className="text-[8px] font-black opacity-30 tracking-widest mt-1">VESSELS</span>
+          <span className="text-3xl font-black italic leading-none text-white tracking-tighter">{total}</span>
+          <span className="text-[9px] font-black opacity-30 tracking-[0.2em] mt-1 text-gray-400">VESSELS</span>
         </div>
       </div>
 
-      {/* LEGEND - Sekarang Dinamis Sesuai Data */}
-      <div className="mt-10 w-full flex flex-col gap-3 text-[10px] font-bold">
-        <div className="flex items-center justify-between group">
-          <div className="flex items-center gap-3">
-            <span className="w-2 h-2 bg-[#bc66ff] rounded-full shadow-[0_0_8px_#bc66ff]"></span>
-            <span className="opacity-60 group-hover:opacity-100 transition-opacity">ACTIVE FLEET</span>
-          </div>
-          <span className="text-white/80">{activeCount}</span>
-        </div>
-
-        <div className="flex items-center justify-between group">
-          <div className="flex items-center gap-3">
-            <span className="w-2 h-2 bg-rose-500 rounded-full shadow-[0_0_8px_#f43f5e]"></span>
-            <span className="opacity-60 group-hover:opacity-100 transition-opacity">CRITICAL STATUS</span>
-          </div>
-          <span className="text-white/80">{criticalCount}</span>
-        </div>
-
-        <div className="flex items-center justify-between group">
-          <div className="flex items-center gap-3">
-            <span className="w-2 h-2 bg-indigo-400 rounded-full"></span>
-            <span className="opacity-60 group-hover:opacity-100 transition-opacity">PLANNED MAINT.</span>
-          </div>
-          <span className="text-white/80">{plannedCount}</span>
-        </div>
+      <div className="mt-12 w-full space-y-4 px-2">
+        <LegendItem color="bg-[#bc66ff]" label="ACTIVE FLEET" count={activeCount} glow="shadow-[#bc66ff]" />
+        <LegendItem color="bg-rose-500" label="CRITICAL STATUS" count={criticalCount} glow="shadow-rose-500" />
+        <LegendItem color="bg-indigo-400" label="PLANNED MAINT." count={plannedCount} />
       </div>
+    </div>
+  );
+}
 
+function LegendItem({ color, label, count, glow = "" }: { color: string, label: string, count: number, glow?: string }) {
+  return (
+    <div className="flex items-center justify-between group">
+      <div className="flex items-center gap-3">
+        <span className={`w-1.5 h-1.5 ${color} rounded-full ${glow ? `shadow-[0_0_8px_rgba(0,0,0,0)] group-hover:${glow}` : ""} transition-all`}></span>
+        <span className="text-[10px] font-bold text-gray-500 group-hover:text-gray-300 transition-colors tracking-widest uppercase">{label}</span>
+      </div>
+      <span className="text-[10px] font-black text-white/60 group-hover:text-white transition-colors">{count}</span>
     </div>
   );
 }

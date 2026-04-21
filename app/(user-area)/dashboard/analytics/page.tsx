@@ -14,20 +14,20 @@ export default function Page() {
     : 0;
 
   return (
-    <div className="w-full">
+    <div className="w-full bg-[#0a0514] min-h-screen">
       <div className="px-10 pt-6">
         <div className="mb-8">
-          <h1 className="text-2xl font-semibold tracking-wide text-white uppercase italic">
+          <h1 className="text-2xl font-black tracking-tighter text-white uppercase italic">
             Analytic Dashboard
           </h1>
-          <p className="text-[10px] tracking-widest opacity-60 text-[#bc66ff] uppercase mt-1 font-bold">
+          <p className="text-[10px] tracking-[0.3em] text-[#bc66ff]/60 uppercase mt-1 font-bold">
             Real-time Fleet Intelligence & Maintenance Status
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
           <MetricCard title="FLEET READINESS" value={`${avgReady}%`} /> 
-          <MetricCard title="MONITORED VESSELS" value={totalVessels} />
+          <MetricCard title="MONITORED VESSELS" value={String(totalVessels).padStart(2, '0')} />
           <MetricCard title="FUEL COST INDEX" value="0.94" /> 
           <MetricCard 
             title="SYSTEM ALERTS" 
@@ -37,12 +37,12 @@ export default function Page() {
           />
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-6">
-          <div className="lg:col-span-2 bg-[#1a0b2e]/50 rounded-[20px] border border-white/5 p-4 backdrop-blur-sm">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+          <div className="lg:col-span-2 bg-[#150e24] rounded-[2.5rem] border border-white/5 overflow-hidden backdrop-blur-xl shadow-2xl min-h-[400px] flex flex-col">
             <ChartBox />
           </div>
 
-          <div className="bg-[#1a0b2e]/50 rounded-[20px] border border-white/5 p-4 backdrop-blur-sm">
+          <div className="bg-[#150e24] rounded-[2.5rem] border border-white/5 p-6 flex items-center justify-center shadow-2xl">
             <DonutChart />
           </div>
         </div>
