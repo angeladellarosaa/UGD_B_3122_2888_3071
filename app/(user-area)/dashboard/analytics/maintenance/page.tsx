@@ -1,5 +1,5 @@
 "use client";
-
+export const dynamic = 'force-dynamic';
 import React from "react";
 import { maintenanceData, maintenanceLogs } from "@/app/lib/placeholder-data"; 
 import MaintenanceMetricCard from "@/components/analytics/MetricCard";
