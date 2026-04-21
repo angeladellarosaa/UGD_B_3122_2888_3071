@@ -22,8 +22,6 @@ const vesselData = [
 export default function DashboardPage() {
   return (
     <div className={`min-h-screen bg-[#0d0415] text-white p-6 ${robotoMono.className}`}>
-
-      {/* --- QUICK STATS --- */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
         {[
           { label: "TOTAL VESSELS", value: "124", sub: "+3.2%" },
@@ -66,7 +64,6 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        {/* --- SYSTEM ALERTS --- */}
         <div className="flex flex-col">
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-[13px] font-extrabold tracking-[0.25em] text-white uppercase">SYSTEM ALERTS</h2>
@@ -114,7 +111,6 @@ export default function DashboardPage() {
               </div>
             </div>
 
-            {/*BUTTON alert*/}
             <Link href="/alerts">
               <button className="w-full mt-6 py-2.5 bg-white/5 border border-white/10 rounded-[100px] text-[9px] font-bold tracking-[0.2em] hover:bg-white/10 transition-all uppercase">
                 View All Logs
@@ -125,7 +121,6 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      {/* --- ACTIVE VESSEL & FLEET PERFORMANCE --- */}
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
         <div className="lg:col-span-3 bg-[#1a0b2e] rounded-[32px] border border-white/5 overflow-hidden">
           <div className="p-6 flex justify-between items-center">
@@ -180,7 +175,6 @@ export default function DashboardPage() {
           </table>
         </div>
 
-        {/* Fleet Performance */}
         <div className="flex flex-col gap-4">
           <h2 className="text-[13px] font-extrabold tracking-[0.25em] text-white uppercase">Fleet Performance</h2>
           <div className="bg-[#1a0b2e] rounded-[32px] border border-white/5 p-6 flex-grow">
