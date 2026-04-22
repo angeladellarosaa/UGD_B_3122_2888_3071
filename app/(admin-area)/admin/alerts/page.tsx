@@ -8,7 +8,6 @@ import {
 } from '@heroicons/react/24/outline';
 import { robotoMono } from '@/app/ui/fonts';
 
-// SESUAIKAN IMPORTNYA: Ambil 'alerts' bukan 'systemAlerts'
 import { alerts } from "@/app/lib/placeholder-data"; 
 
 export default function AlertsPage() {
@@ -20,7 +19,6 @@ export default function AlertsPage() {
       </h1>
 
       <div className="max-w-3xl space-y-4">
-        {/* Map menggunakan variabel 'alerts' dari placeholder */}
         {alerts.map((a, i) => (
           <div 
             key={i} 
@@ -30,7 +28,6 @@ export default function AlertsPage() {
                 'bg-white/5 border-white/10 border-l-4 border-l-gray-500'}
             `}
           >
-            {/* ICON SESUAI WARNA */}
             <div className="shrink-0 pt-1">
               {a.color === 'rose' && <ExclamationTriangleIcon className="w-6 h-6 text-rose-500" />}
               {a.color === 'purple' && <CloudIcon className="w-6 h-6 text-[#bc66ff]" />}
@@ -47,7 +44,6 @@ export default function AlertsPage() {
                 <span className="text-[10px] font-bold text-gray-600 tracking-tighter">{a.time}</span>
               </div>
               
-              {/* Deskripsi ini akan otomatis muncul: "MV OCEAN STAR reports FUEL PUMP 4." */}
               <p className="text-[11px] text-gray-400 leading-relaxed">
                 {a.desc}
               </p>

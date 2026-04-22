@@ -17,8 +17,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body className="bg-[#0d0415] text-white m-0 p-0 min-h-screen">
-        
-        {/* Navigasi dipisahkan berdasarkan area */}
         {isAdminArea ? (
           <AdminNav />
         ) : isUserArea ? (
@@ -27,7 +25,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           !isAuthPage && <Navbar />
         )}
 
-        {/* pt-0 memastikan tidak ada gap tambahan dari layout utama */}
         <main className="relative w-full pt-0">
           {children}
         </main>

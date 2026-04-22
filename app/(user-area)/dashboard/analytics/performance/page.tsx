@@ -37,7 +37,7 @@ export default function PerformancePage() {
       <div className="px-10 pt-6">
         <div className="flex justify-between items-center mb-10">
           <div>
-            <h1 className="text-2xl font-semibold tracking-wide text-white uppercase italic">
+            <h1 className="text-2xl font-semibold tracking-wide text-white uppercase">
               Performance Analytics
             </h1>
             <p className="text-[10px] tracking-widest opacity-60 text-[#bc66ff] uppercase mt-1 font-bold">

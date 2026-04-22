@@ -17,7 +17,7 @@ export default function Page() {
     <div className="w-full bg-[#0a0514] min-h-screen">
       <div className="px-10 pt-6">
         <div className="mb-8">
-          <h1 className="text-2xl font-black tracking-tighter text-white uppercase italic">
+          <h1 className="text-2xl font-black tracking-tighter text-white uppercase">
             Analytic Dashboard
           </h1>
           <p className="text-[10px] tracking-[0.3em] text-[#bc66ff]/60 uppercase mt-1 font-bold">

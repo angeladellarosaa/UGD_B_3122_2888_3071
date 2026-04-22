@@ -20,7 +20,7 @@ export default function MaintenanceAnalytics() {
     <div className="w-full min-h-screen bg-[#0a0514] text-white font-mono p-6 lg:p-10">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-4 border-b border-white/5 pb-8">
         <div>
-          <h1 className="text-4xl font-black italic tracking-tighter uppercase leading-none text-white">
+          <h1 className="text-4xl font-black tracking-tighter uppercase leading-none text-white">
             Fleet Analytics
           </h1>
           <p className="text-[10px] text-[#bc66ff] font-black tracking-[0.4em] mt-3 uppercase opacity-80">
@@ -109,7 +109,7 @@ export default function MaintenanceAnalytics() {
                       </div>
                     </td>
                     <td className="px-8 py-6 text-right">
-                      <p className="text-[11px] font-black text-[#bc66ff] tracking-tighter uppercase italic">{ship.eta}</p>
+                      <p className="text-[11px] font-black text-[#bc66ff] tracking-tighter uppercase">{ship.eta}</p>
                       <p className="text-[8px] text-white/20 uppercase">{ship.engineEff || ship.temp || 'N/A'}</p>
                     </td>
                   </tr>
@@ -134,7 +134,7 @@ export default function MaintenanceAnalytics() {
                 />
               </svg>
               <div className="absolute inset-0 flex flex-col items-center justify-center">
-                <span className="text-5xl font-black italic tracking-tighter text-white">{avgEfficiency}%</span>
+                <span className="text-5xl font-black tracking-tighter text-white">{avgEfficiency}%</span>
                 <span className="text-[9px] text-[#bc66ff] font-black uppercase tracking-[0.2em] mt-1">Fleet Score</span>
               </div>
             </div>

@@ -36,8 +36,6 @@ export default function ProfilePage() {
 
   return (
     <div className={`min-h-screen bg-transparent text-white p-6 ${robotoMono.className}`}>
-
-      {/* HEADER */}
       <div className="mb-8">
         <h1 className="text-xl font-bold tracking-widest">Profile</h1>
         <p className="text-[11px] text-gray-400 mt-1">
@@ -45,13 +43,8 @@ export default function ProfilePage() {
         </p>
       </div>
 
-      {/* GRID */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-
-        {/*LEFT Side*/}
         <div className="lg:col-span-2 space-y-6">
-
-          {/*ACCOUNT INFO*/}
           <div className="bg-[#1a0b2e]/80 border border-white/5 rounded-2xl p-6">
             <h2 className="text-[12px] tracking-widest text-gray-400 mb-6 uppercase">
               Account Information
@@ -88,7 +81,6 @@ export default function ProfilePage() {
             </div>
           </div>
 
-          {/*SECURITY*/}
           <div className="bg-[#1a0b2e]/80 border border-white/5 rounded-2xl p-6">
             <h2 className="text-[12px] tracking-widest text-gray-400 mb-6 uppercase">
               Security Settings
@@ -122,7 +114,6 @@ export default function ProfilePage() {
           </div>
         </div>
 
-        {/*RIGHT Side*/}
         <div className="space-y-6">
           <div className="bg-[#1a0b2e]/80 border border-white/5 rounded-2xl p-6">
             <h2 className="text-[12px] tracking-widest text-gray-400 mb-4 uppercase">
@@ -160,7 +151,6 @@ export default function ProfilePage() {
         </div>
       </div>
 
-      {/*CHANGE PASSWORD*/}
       {openPassword && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
           <div className={`bg-[#1a0b2e] border border-white/10 rounded-2xl p-6 w-full max-w-sm shadow-2xl ${robotoMono.className}`}>
@@ -231,7 +221,6 @@ export default function ProfilePage() {
         </div>
       )}
 
-      {/*PREFERENCES*/}
       {openPreferences && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
           <div className={`bg-[#1a0b2e] border border-white/10 rounded-2xl p-6 w-full max-w-sm shadow-2xl ${robotoMono.className}`}>
@@ -245,7 +234,6 @@ export default function ProfilePage() {
               </button>
             </div>
 
-            {/*NOTIFICATION SETTINGS*/}
             <div className="mt-5">
               <div className="flex items-center gap-2 mb-3">
                 <div className="w-0.5 h-4 bg-[#7c3aed] rounded-full" />
@@ -282,7 +270,6 @@ export default function ProfilePage() {
               </div>
             </div>
 
-            {/*LANGUAGE SETTINGS*/}
             <div className="mt-5">
               <div className="flex items-center gap-2 mb-3">
                 <div className="w-0.5 h-4 bg-[#7c3aed] rounded-full" />

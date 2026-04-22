@@ -1,14 +1,12 @@
 "use client";
 
-// Tambahkan statusType di parameter
 export default function MetricCard({
   title,
   value,
   subtitle,
-  statusType, // Prop baru untuk deteksi bahaya
+  statusType, 
 }: any) {
   
-  // Tentukan warna berdasarkan statusType
   const isWarning = statusType === "warning";
 
   return (
@@ -21,7 +19,7 @@ export default function MetricCard({
         {title}
       </p>
 
-      <h2 className={`text-3xl font-black italic mt-2 tracking-tighter ${
+      <h2 className={`text-3xl font-black mt-2 tracking-tighter ${
         isWarning ? "text-rose-500" : "text-white"
       }`}>
         {value}

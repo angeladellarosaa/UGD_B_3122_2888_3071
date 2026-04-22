@@ -23,7 +23,7 @@ export default function DashboardNav() {
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  const user = { name: "Beni Maulana", role: "Super Admin", initials: "BM" };
+  const user = { name: "Beni Maulana", role: "User", initials: "BM" };
 
   const menuItems: MenuItem[] = [
     { name: 'Dashboard', path: '/dashboard', exact: true },
@@ -78,13 +78,10 @@ export default function DashboardNav() {
   return (
     <>
       <header className="fixed top-0 inset-x-0 h-20 z-[1000] flex justify-between items-center px-8 border-b border-purple-900/20 bg-[#0d0716]/80 backdrop-blur-md">
-        
-        {/* BRANDING */}
         <div className="w-1/4 text-[#bc66ff] font-bold uppercase tracking-[0.3em] text-[10px]">
           PT. Samudra Technology Nusantara
         </div>
 
-        {/* CENTER NAVIGATION */}
         <nav className="flex justify-center gap-10 h-full text-[10px] font-bold uppercase tracking-[0.2em]">
           {menuItems.map((item) => {
             const active = isActive(item);
@@ -134,10 +131,7 @@ export default function DashboardNav() {
           })}
         </nav>
 
-        {/* RIGHT SIDE */}
         <div className="w-1/4 flex justify-end items-center gap-4">
-          
-          {/* NOTIFICATION ICON (Yang sempat hilang) */}
           <div className="flex items-center gap-4 pr-4 border-r border-white/10">
             <Link 
               href="/dashboard/alerts" 
@@ -152,7 +146,6 @@ export default function DashboardNav() {
             </Link>
           </div>
 
-          {/* USER PROFILE */}
           <div className="flex items-center gap-3 pr-2">
             <div className="text-right leading-none">
               <p className="text-white text-[9px] font-black uppercase">{user.name}</p>
@@ -163,7 +156,6 @@ export default function DashboardNav() {
             </div>
           </div>
 
-          {/* LOGOUT BUTTON */}
           <button 
             onClick={() => setShowLogoutModal(true)}
             className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/5 border border-white/5 text-gray-500 hover:text-red-400 hover:bg-red-500/10 hover:border-red-500/20 transition-all duration-300 group"
@@ -176,7 +168,6 @@ export default function DashboardNav() {
         </div>
       </header>
 
-      {/* MODAL INITIALIZE TERMINAL TERMINATION */}
       {showLogoutModal && (
         <div className="fixed inset-0 z-[1100] flex items-center justify-center p-4">
           <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" onClick={() => setShowLogoutModal(false)}></div>

@@ -74,21 +74,17 @@ export default function UsersPage() {
   const inputCls = "w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-[12px] font-bold outline-none focus:border-[#d095ff]/50 transition-all text-white placeholder:text-white/10 uppercase";
   const selectCls = "w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-[12px] font-bold outline-none text-white appearance-none uppercase tracking-widest cursor-pointer";
   const labelCls = "text-[9px] font-black text-gray-500 uppercase tracking-widest flex items-center gap-2";
-
-  // ✅ Grid columns diperbaiki agar proporsional & konsisten
   const gridCols = "grid grid-cols-[minmax(160px,2fr)_minmax(120px,1fr)_minmax(140px,1.5fr)_minmax(110px,1fr)_minmax(100px,1fr)_80px]";
 
   return (
     <div className={`min-h-screen bg-transparent text-white p-4 md:p-8 ${robotoMono.className}`}>
-
-      {/* HEADER */}
       <div className="flex justify-between items-center mb-8">
         <div>
           <h1 className="text-2xl font-black tracking-[0.2em] uppercase drop-shadow-[0_0_10px_rgba(255,255,255,0.3)]">
             User Management
           </h1>
           <p className="text-[10px] font-bold text-[#d095ff] tracking-widest mt-1 opacity-80 uppercase">
-            PERSONNEL_DATABASE // ACCESS_CONTROL
+            PERSONNEL DATABASE // ACCESS CONTROL
           </p>
         </div>
         <button
@@ -99,7 +95,6 @@ export default function UsersPage() {
         </button>
       </div>
 
-      {/*FILTER BAR*/}
       <div className="bg-[#1a0b2e]/40 backdrop-blur-md border border-white/10 rounded-2xl p-2 flex items-center gap-3 mb-8 shadow-inner">
         <div className="flex items-center gap-3 flex-1 px-4 py-2">
           <MagnifyingGlassIcon className="w-4 shrink-0 text-[#d095ff]" />
@@ -129,10 +124,7 @@ export default function UsersPage() {
         </div>
       </div>
 
-      {/*TABLE*/}
       <div className="bg-[#1a0b2e]/30 backdrop-blur-xl rounded-[32px] border border-white/10 overflow-hidden shadow-2xl">
-
-        {/* HEADER ROW */}
         <div className={`${gridCols} px-6 py-4 text-[9px] font-black text-[#d095ff] uppercase tracking-[0.2em] bg-white/5 border-b border-white/10`}>
           <span className="pl-2">Identity</span>
           <span>Role</span>
@@ -142,7 +134,6 @@ export default function UsersPage() {
           <span className="text-right pr-2">Actions</span>
         </div>
 
-        {/* ROWS */}
         <div className="max-h-[55vh] overflow-y-auto custom-scrollbar">
           {filteredUsers.length === 0 ? (
             <div className="text-center py-16 text-gray-600 text-[11px] tracking-widest uppercase">
@@ -153,7 +144,6 @@ export default function UsersPage() {
               key={user.id || i}
               className={`${gridCols} px-6 py-4 items-center border-b border-white/5 last:border-none hover:bg-[#d095ff]/5 transition-colors group`}
             >
-              {/* Identity */}
               <div className="flex flex-col gap-0.5 pl-2 min-w-0">
                 <p className="font-bold tracking-wider text-white group-hover:text-[#d095ff] transition-colors uppercase text-[11px] truncate">
                   {user.name}
@@ -161,16 +151,9 @@ export default function UsersPage() {
                 <p className="text-white/30 text-[9px] font-bold tracking-tighter truncate">{user.email}</p>
               </div>
 
-              {/*Role */}
               <span className="text-gray-400 font-bold text-[10px] uppercase tracking-wide truncate">{user.role}</span>
-
-              {/*Port*/}
               <span className="text-gray-400 font-bold text-[10px] uppercase tracking-wide truncate">{getPortName(user.port_id)}</span>
-
-              {/*Shift*/}
               <span className="text-gray-400 font-bold text-[10px] uppercase tracking-wide">{user.shift}</span>
-
-              {/*Status*/}
               <div>
                 <span className={`inline-block px-3 py-1 rounded-md text-[9px] font-black tracking-widest border ${
                   user.status === 'ACTIVE'
@@ -181,7 +164,6 @@ export default function UsersPage() {
                 </span>
               </div>
 
-              {/* Actions */}
               <div className="flex items-center justify-end gap-4 pr-2">
                 <button onClick={() => handleOpenEdit(user as User)} className="group/btn">
                   <PencilSquareIcon className="w-4 text-gray-500 hover:text-[#d095ff] transition-all hover:scale-110" />
@@ -195,7 +177,7 @@ export default function UsersPage() {
         </div>
       </div>
 
-      {/*ADD USER*/}
+
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
           <div className="bg-[#140a1f] border border-white/10 w-full max-w-2xl rounded-[32px] overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.5)]">
@@ -244,7 +226,6 @@ export default function UsersPage() {
         </div>
       )}
 
-      {/*EDIT USE*/}
       {isEditOpen && editingUser && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
           <div className="bg-[#140a1f] border border-white/10 w-full max-w-2xl rounded-[32px] overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.5)]">
@@ -300,7 +281,6 @@ export default function UsersPage() {
         </div>
       )}
 
-      {/*DELETE CONFIRM*/}
       {isDeleteOpen && deletingUser && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
           <div className="bg-[#140a1f] border border-white/10 w-full max-w-sm rounded-[32px] overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.5)] text-center p-8">

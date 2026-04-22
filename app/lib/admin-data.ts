@@ -64,7 +64,6 @@ export const users = [
 ];
 
 
-//alerts nav
 export const alerts = [
   {
     id: 1,

@@ -29,7 +29,7 @@ export default function MaintenancePage() {
     <div className="min-h-screen bg-[#0a0514] text-white font-mono p-8 pt-4 space-y-8">
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-black uppercase tracking-tighter italic">Maintenance Hub</h1>
+          <h1 className="text-3xl font-black uppercase tracking-tighter">Maintenance Hub</h1>
           <p className="text-[10px] text-[#bc66ff]/60 font-bold tracking-[0.3em] mt-1">AQUALYNX SYSTEMS - ENGINEERING DIV.</p>
         </div>
         <div className="flex items-center gap-3 bg-[#150e24] px-5 py-2.5 rounded-full border border-white/5 shadow-2xl">
@@ -43,16 +43,16 @@ export default function MaintenancePage() {
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
         <div className="bg-[#150e24] border border-white/5 p-6 rounded-3xl hover:border-white/10 transition-colors">
           <p className="text-[8px] text-gray-500 font-bold uppercase mb-4">Active Service</p>
-          <p className="text-4xl font-black italic">{String(activeCount).padStart(2, '0')}</p>
+          <p className="text-4xl font-black">{String(activeCount).padStart(2, '0')}</p>
         </div>
         <div className="bg-[#150e24] border border-white/5 p-6 rounded-3xl hover:border-white/10 transition-colors">
           <p className="text-[8px] text-gray-500 font-bold uppercase mb-4">Total Fleet</p>
-          <p className="text-4xl font-black italic text-[#bc66ff]">{String(maintenanceData.length).padStart(2, '0')}</p>
+          <p className="text-4xl font-black text-[#bc66ff]">{String(maintenanceData.length).padStart(2, '0')}</p>
         </div>
         <div className="bg-[#150e24] border border-white/5 p-6 rounded-3xl">
           <p className="text-[8px] text-gray-500 font-bold uppercase mb-4">Fleet Health Score</p>
           <div className="flex items-end gap-3">
-            <p className="text-4xl font-black italic">{avgProgress}%</p>
+            <p className="text-4xl font-black">{avgProgress}%</p>
             <div className="w-full h-1 bg-white/5 rounded-full mb-2 overflow-hidden">
                 <div className="h-full bg-[#bc66ff] transition-all duration-1000 shadow-[0_0_10px_#bc66ff]" style={{width: `${avgProgress}%`}}></div>
             </div>
@@ -60,7 +60,7 @@ export default function MaintenancePage() {
         </div>
         <div className={`border p-6 rounded-3xl transition-all duration-500 ${criticalCount > 0 ? 'bg-rose-500/10 border-rose-500/40 shadow-[0_0_30px_rgba(244,63,94,0.1)]' : 'bg-[#150e24] border-white/5'}`}>
           <p className={`text-[8px] font-bold uppercase mb-4 ${criticalCount > 0 ? 'text-rose-500' : 'text-gray-500'}`}>Critical Alerts</p>
-          <p className={`text-4xl font-black italic ${criticalCount > 0 ? 'text-rose-500 underline decoration-double' : 'text-white'}`}>
+          <p className={`text-4xl font-black ${criticalCount > 0 ? 'text-rose-500 underline decoration-double' : 'text-white'}`}>
             {String(criticalCount).padStart(2, '0')}
           </p>
         </div>

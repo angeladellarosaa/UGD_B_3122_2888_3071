@@ -10,7 +10,7 @@ export default function FleetOverview() {
           <div key={i} className="bg-[#150e24] border border-white/5 p-6 rounded-3xl shadow-xl hover:border-[#bc66ff]/20 transition-all">
             <p className="text-[8px] text-gray-500 font-bold uppercase tracking-[0.2em] mb-3">{s.label}</p>
             <div className="flex items-baseline gap-2">
-              <p className="text-4xl font-black italic">{s.value}</p>
+              <p className="text-4xl font-black">{s.value}</p>
               <p className={`text-[9px] font-bold ${s.subColor}`}>{s.sub}</p>
             </div>
           </div>
@@ -53,7 +53,7 @@ export default function FleetOverview() {
                     <td className="px-8 py-4 font-black text-[#bc66ff] group-hover:tracking-wider transition-all uppercase">
                       {v.name}
                     </td>
-                    <td className="px-8 py-4 font-bold text-gray-400 italic">
+                    <td className="px-8 py-4 font-bold text-gray-400">
                       {v.location}
                     </td>
                     <td className="px-8 py-4 font-bold text-gray-200">

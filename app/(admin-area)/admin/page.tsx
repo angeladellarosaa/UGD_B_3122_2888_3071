@@ -5,20 +5,16 @@ import { UserIcon, UsersIcon, UserMinusIcon, BuildingOffice2Icon } from '@heroic
 import { users, ports } from '@/app/lib/admin-data';
 
 export default function AdminDashboardPage() {
-
-  //HITUNG DATA
   const totalUsers = users.length;
   const activeUsers = users.filter(u => u.status === 'ACTIVE').length;
   const inactiveUsers = users.filter(u => u.status === 'INACTIVE').length;
   const totalPorts = ports.length;
 
-  //simple logic 
   const activeSessions = activeUsers - 1;
 
   return (
     <div className={`min-h-screen bg-[#0d0415] text-white p-6 ${robotoMono.className}`}>
 
-      {/* HEADER */}
       <div className="mb-8">
         <h1 className="text-xl font-bold tracking-widest">Admin Dashboard</h1>
         <p className="text-[11px] text-gray-400 mt-1">
@@ -29,7 +25,6 @@ export default function AdminDashboardPage() {
         </p>
       </div>
 
-      {/* STATS */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
 
         {[
@@ -54,10 +49,8 @@ export default function AdminDashboardPage() {
 
       </div>
 
-      {/* CONTENT */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-        {/*RECENT ACTIVITY (AUTO DARI USERS)*/}
         <div className="lg:col-span-2 bg-[#1a0b2e]/80 p-6 rounded-[24px] border border-white/5">
 
           <h2 className="text-[13px] font-extrabold tracking-[0.25em] uppercase mb-6">
@@ -68,11 +61,7 @@ export default function AdminDashboardPage() {
 
             {[...users].reverse().slice(0, 5).map((user, i) => (
               <div key={i} className="flex items-start gap-4">
-
-                {/*DOT*/}
                 <div className="w-2 h-2 mt-2 rounded-full bg-[#d095ff]" />
-
-                {/* TEXT */}
                 <div>
                   <p className="text-[12px] text-white font-medium">
                     {user.name} assigned to {ports.find(p => p.id === user.port_id)?.name}
@@ -88,7 +77,6 @@ export default function AdminDashboardPage() {
           </div>
         </div>
 
-        {/*SYSTEM OVERVIEW */}
         <div className="bg-[#1a0b2e]/80 p-6 rounded-[24px] border border-white/5">
 
           <h2 className="text-[13px] font-extrabold tracking-[0.25em] uppercase mb-6">

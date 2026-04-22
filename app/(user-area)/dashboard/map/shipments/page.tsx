@@ -13,7 +13,7 @@ export default function ActiveShipmentsPage() {
     <div className="min-h-screen bg-[#0a0514] text-white font-mono p-8 pt-4 space-y-8">
       <div className="flex justify-between items-start">
         <div>
-          <h1 className="text-3xl font-black uppercase tracking-tighter italic text-white/90">Active Shipments</h1>
+          <h1 className="text-3xl font-black uppercase tracking-tighter text-white/90">Active Shipments</h1>
           <p className="text-[10px] text-[#bc66ff]/60 font-bold tracking-[0.3em] mt-1">REAL-TIME GLOBAL LOGISTICS MONITORING V4.0</p>
         </div>
         <div className="flex gap-4">
