@@ -4,19 +4,16 @@ import { robotoMono } from '@/app/ui/fonts';
 import { UsersIcon, UserIcon, UserMinusIcon, BuildingOffice2Icon } from '@heroicons/react/24/outline';
 import { users, ports } from '@/app/lib/admin-data';
 
-// 1. Komponen Stats (Server Component)
+// 1. Komponen Stats
 async function StatsSection() {
+  // Simulasi loading data
   await new Promise((resolve) => setTimeout(resolve, 1000));
-  const totalUsers = users.length;
-  const activeUsers = users.filter(u => u.status === 'ACTIVE').length;
-  const inactiveUsers = users.filter(u => u.status === 'INACTIVE').length;
-  const totalPorts = ports.length;
-
+  
   const stats = [
-    { label: "Total Users", value: totalUsers, icon: <UsersIcon className="w-5" /> },
-    { label: "Active Users", value: activeUsers, icon: <UserIcon className="w-5" /> },
-    { label: "Inactive Users", value: inactiveUsers, icon: <UserMinusIcon className="w-5" /> },
-    { label: "Total Ports", value: totalPorts, icon: <BuildingOffice2Icon className="w-5" /> },
+    { label: "Total Users", value: users.length, icon: <UsersIcon className="w-5" /> },
+    { label: "Active Users", value: users.filter(u => u.status === 'ACTIVE').length, icon: <UserIcon className="w-5" /> },
+    { label: "Inactive Users", value: users.filter(u => u.status === 'INACTIVE').length, icon: <UserMinusIcon className="w-5" /> },
+    { label: "Total Ports", value: ports.length, icon: <BuildingOffice2Icon className="w-5" /> },
   ];
 
   return (
@@ -34,14 +31,13 @@ async function StatsSection() {
   );
 }
 
-// 2. Komponen Aktivitas & Overview (Server Component)
+// 2. Komponen Aktivitas & Overview
 async function ActivityAndOverview() {
   await new Promise((resolve) => setTimeout(resolve, 1500));
   const activeSessions = users.filter(u => u.status === 'ACTIVE').length - 1;
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-      {/* Recent Activity */}
       <div className="lg:col-span-2 bg-[#1a0b2e]/80 p-6 rounded-[24px] border border-white/5">
         <h2 className="text-[13px] font-extrabold tracking-[0.25em] uppercase mb-6">Recent Activity</h2>
         <div className="space-y-6">
@@ -57,7 +53,6 @@ async function ActivityAndOverview() {
         </div>
       </div>
 
-      {/* System Overview */}
       <div className="bg-[#1a0b2e]/80 p-6 rounded-[24px] border border-white/5">
         <h2 className="text-[13px] font-extrabold tracking-[0.25em] uppercase mb-6">System Overview</h2>
         <div className="space-y-4 text-[11px]">
@@ -71,7 +66,7 @@ async function ActivityAndOverview() {
 }
 
 // 3. Main Page
-export default async function AdminDashboardPage() {
+export default function AdminDashboardPage() {
   return (
     <div className={`min-h-screen bg-[#0d0415] text-white p-6 ${robotoMono.className}`}>
       <div className="mb-8">
