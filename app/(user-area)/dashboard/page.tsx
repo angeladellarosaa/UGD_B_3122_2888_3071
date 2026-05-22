@@ -1,18 +1,104 @@
 'use client';
 
-import React from 'react';
-import Link from 'next/link';
+import React, { useEffect, useState } from 'react';
 import { 
   MagnifyingGlassIcon,
   ExclamationTriangleIcon,
-  CloudIcon,
-  ClockIcon
+  CloudIcon
 } from '@heroicons/react/24/outline';
 import { 
   dashboardStats, 
   mapVesselData, 
   alerts 
 } from "@/app/lib/placeholder-data";
+
+type AlertItem = {
+  title: string;
+  time: string;
+  desc: string;
+  color: string;
+};
+
+function SystemAlertsLoading() {
+  return (
+    <div className="bg-[#1a0b2e] rounded-[2.5rem] border border-white/5 p-6 flex-grow shadow-lg overflow-hidden max-h-[450px]">
+      <div className="mb-5 flex items-center gap-3">
+        <div className="h-4 w-4 rounded-full border-2 border-[#bc66ff]/30 border-t-[#bc66ff] animate-spin" />
+        <p className="text-[9px] font-black uppercase tracking-[0.25em] text-[#bc66ff] animate-pulse">
+          Scanning Alerts
+        </p>
+      </div>
+
+      <div className="space-y-4">
+        {[1, 2, 3].map((item) => (
+          <div
+            key={item}
+            className="rounded-r-2xl rounded-l-md border-l-2 border-white/10 bg-black/30 p-4 animate-pulse"
+          >
+            <div className="flex gap-4">
+              <div className="mt-1 h-5 w-5 rounded-full bg-white/10 shrink-0" />
+
+              <div className="w-full space-y-3">
+                <div className="flex items-start justify-between gap-3">
+                  <div className="h-3 w-28 rounded bg-white/10" />
+                  <div className="h-3 w-16 rounded bg-white/10" />
+                </div>
+
+                <div className="space-y-2">
+                  <div className="h-3 w-full rounded bg-white/10" />
+                  <div className="h-3 w-3/4 rounded bg-white/10" />
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function SystemAlertsPanel({ alertList }: { alertList: AlertItem[] }) {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timeoutId = window.setTimeout(() => {
+      setIsLoading(false);
+    }, 2500);
+
+    return () => window.clearTimeout(timeoutId);
+  }, []);
+
+  if (isLoading) {
+    return <SystemAlertsLoading />;
+  }
+
+  return (
+    <div className="bg-[#1a0b2e] rounded-[2.5rem] border border-white/5 p-6 flex-grow shadow-lg overflow-y-auto max-h-[450px]">
+      <div className="space-y-4">
+        {alertList.map((alert, idx) => (
+          <div key={idx} className={`flex gap-4 p-4 border-l-2 rounded-r-2xl ${
+            alert.color === 'rose' ? 'bg-rose-500/5 border-rose-500' : 'bg-[#bc66ff]/5 border-[#bc66ff]'
+          }`}>
+            {alert.color === 'rose' ? (
+              <ExclamationTriangleIcon className="w-5 h-5 text-rose-500 shrink-0" />
+            ) : (
+              <CloudIcon className="w-5 h-5 text-[#bc66ff] shrink-0" />
+            )}
+            <div>
+              <div className="flex justify-between items-start mb-1">
+                <p className={`text-[9px] font-black uppercase tracking-tighter ${
+                  alert.color === 'rose' ? 'text-rose-500' : 'text-[#bc66ff]'
+                }`}>{alert.title}</p>
+                <p className="text-[8px] text-gray-600 font-bold">{alert.time}</p>
+              </div>
+              <p className="text-[10px] text-gray-400 leading-relaxed uppercase">{alert.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 export default function DashboardPage() {
   return (
@@ -69,30 +155,7 @@ export default function DashboardPage() {
               {alerts.length} Active
             </span>
           </div>
-          <div className="bg-[#1a0b2e] rounded-[2.5rem] border border-white/5 p-6 flex-grow shadow-lg overflow-y-auto max-h-[450px]">
-            <div className="space-y-4">
-              {alerts.map((alert, idx) => (
-                <div key={idx} className={`flex gap-4 p-4 border-l-2 rounded-r-2xl ${
-                  alert.color === 'rose' ? 'bg-rose-500/5 border-rose-500' : 'bg-[#bc66ff]/5 border-[#bc66ff]'
-                }`}>
-                  {alert.color === 'rose' ? (
-                    <ExclamationTriangleIcon className="w-5 h-5 text-rose-500 shrink-0" />
-                  ) : (
-                    <CloudIcon className="w-5 h-5 text-[#bc66ff] shrink-0" />
-                  )}
-                  <div>
-                    <div className="flex justify-between items-start mb-1">
-                      <p className={`text-[9px] font-black uppercase tracking-tighter ${
-                        alert.color === 'rose' ? 'text-rose-500' : 'text-[#bc66ff]'
-                      }`}>{alert.title}</p>
-                      <p className="text-[8px] text-gray-600 font-bold">{alert.time}</p>
-                    </div>
-                    <p className="text-[10px] text-gray-400 leading-relaxed uppercase">{alert.desc}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+          <SystemAlertsPanel alertList={alerts} />
         </div>
       </div>
 
