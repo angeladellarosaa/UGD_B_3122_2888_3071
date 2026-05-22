@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 
 import { maintenanceData } from "@/app/lib/placeholder-data"; 
 import MetricCard from "@/components/analytics/MetricCard";
@@ -10,12 +11,15 @@ import VesselTable from "@/components/analytics/VesselTable";
 
 export default function Page() {
   const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState('');
+
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
     }, 1200);
     return () => clearTimeout(timer);
   }, []);
+
   const totalVessels = maintenanceData.length;
   const criticalCount = maintenanceData.filter(
     s => s.status === "CRITICAL"
@@ -28,6 +32,7 @@ export default function Page() {
         ) / totalVessels
       ) 
     : 0;
+
   if (loading) {
     return (
       <div className="w-full bg-[#0a0514] min-h-screen">
@@ -57,14 +62,31 @@ export default function Page() {
   return (
     <div className="w-full bg-[#0a0514] min-h-screen">
       <div className="px-10 pt-6">
-        <div className="mb-8">
-          <h1 className="text-2xl font-black tracking-tighter text-white uppercase">
-            Analytic Dashboard
-          </h1>
-          <p className="text-[10px] tracking-[0.3em] text-[#bc66ff]/60 uppercase mt-1 font-bold">
-            Real-time Fleet Intelligence & Maintenance Status
-          </p>
+        
+        {/* Header Section dengan Input Search */}
+        <div className="mb-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+          <div>
+            <h1 className="text-2xl font-black tracking-tighter text-white uppercase">
+              Analytic Dashboard
+            </h1>
+            <p className="text-[10px] tracking-[0.3em] text-[#bc66ff]/60 uppercase mt-1 font-bold">
+              Real-time Fleet Intelligence & Maintenance Status
+            </p>
+          </div>
+
+          {/* Input Search UI */}
+          <div className="relative align-middle self-start md:self-center">
+            <MagnifyingGlassIcon className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-600" />
+            <input
+              type="text"
+              placeholder="SEARCH_VESSELS..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="bg-black/40 border border-white/10 rounded-xl pl-11 pr-4 py-2.5 text-[10px] w-64 outline-none focus:border-[#bc66ff]/50 font-bold tracking-widest transition-all text-white font-mono"
+            />
+          </div>
         </div>
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
           <MetricCard
             title="FLEET READINESS"
@@ -93,6 +115,7 @@ export default function Page() {
             } 
           />
         </div>
+
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
           <div className="lg:col-span-2 bg-[#150e24] rounded-[2.5rem] border border-white/5 overflow-hidden backdrop-blur-xl shadow-2xl min-h-[400px] flex flex-col">
             <ChartBox />
@@ -101,9 +124,12 @@ export default function Page() {
             <DonutChart />
           </div>
         </div>
+
+        {/* Mengirimkan searchQuery ke VesselTable */}
         <div className="mt-8 mb-10">
           <VesselTable />
         </div>
+
       </div>
     </div>
   );
