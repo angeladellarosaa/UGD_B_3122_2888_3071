@@ -1,5 +1,7 @@
 'use client';
 
+import React, { useState, useEffect } from 'react';
+
 import { maintenanceData } from "@/app/lib/placeholder-data"; 
 import MetricCard from "@/components/analytics/MetricCard";
 import ChartBox from "@/components/analytics/ChartBox";
@@ -7,11 +9,50 @@ import DonutChart from "@/components/analytics/DonutChart";
 import VesselTable from "@/components/analytics/VesselTable";
 
 export default function Page() {
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1200);
+    return () => clearTimeout(timer);
+  }, []);
   const totalVessels = maintenanceData.length;
-  const criticalCount = maintenanceData.filter(s => s.status === "CRITICAL").length;
+  const criticalCount = maintenanceData.filter(
+    s => s.status === "CRITICAL"
+  ).length;
   const avgReady = totalVessels > 0 
-    ? Math.round(maintenanceData.reduce((acc, curr) => acc + curr.progress, 0) / totalVessels) 
+    ? Math.round(
+        maintenanceData.reduce(
+          (acc, curr) => acc + curr.progress,
+          0
+        ) / totalVessels
+      ) 
     : 0;
+  if (loading) {
+    return (
+      <div className="w-full bg-[#0a0514] min-h-screen">
+        <div className="px-10 pt-6">
+          <div className="space-y-2 mb-8">
+            <div className="h-10 w-72 rounded bg-[#150e24] animate-pulse" />
+            <div className="h-4 w-80 rounded bg-[#150e24] animate-pulse" />
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+            {[1, 2, 3, 4].map((item) => (
+              <div
+                key={item}
+                className="h-[145px] rounded-[2rem] bg-[#150e24] border border-white/5 animate-pulse"
+              />
+            ))}
+          </div>
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+            <div className="lg:col-span-2 h-[400px] rounded-[2.5rem] bg-[#150e24] border border-white/5 animate-pulse" />
+            <div className="h-[400px] rounded-[2.5rem] bg-[#150e24] border border-white/5 animate-pulse" />
+          </div>
+          <div className="h-[320px] rounded-[2.5rem] bg-[#150e24] border border-white/5 animate-pulse mb-10" />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="w-full bg-[#0a0514] min-h-screen">
@@ -24,29 +65,42 @@ export default function Page() {
             Real-time Fleet Intelligence & Maintenance Status
           </p>
         </div>
-
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-          <MetricCard title="FLEET READINESS" value={`${avgReady}%`} /> 
-          <MetricCard title="MONITORED VESSELS" value={String(totalVessels).padStart(2, '0')} />
-          <MetricCard title="FUEL COST INDEX" value="0.94" /> 
+          <MetricCard
+            title="FLEET READINESS"
+            value={`${avgReady}%`}
+          /> 
+          <MetricCard
+            title="MONITORED VESSELS"
+            value={String(totalVessels).padStart(2, '0')}
+          />
+          <MetricCard
+            title="FUEL COST INDEX"
+            value="0.94"
+          /> 
           <MetricCard 
             title="SYSTEM ALERTS" 
             value={criticalCount} 
-            subtitle={criticalCount > 0 ? "ACTION REQUIRED" : "SYSTEM CLEAR"}
-            statusType={criticalCount > 0 ? "warning" : "optimal"} 
+            subtitle={
+              criticalCount > 0
+                ? "ACTION REQUIRED"
+                : "SYSTEM CLEAR"
+            }
+            statusType={
+              criticalCount > 0
+                ? "warning"
+                : "optimal"
+            } 
           />
         </div>
-
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
           <div className="lg:col-span-2 bg-[#150e24] rounded-[2.5rem] border border-white/5 overflow-hidden backdrop-blur-xl shadow-2xl min-h-[400px] flex flex-col">
             <ChartBox />
           </div>
-
           <div className="bg-[#150e24] rounded-[2.5rem] border border-white/5 p-6 flex items-center justify-center shadow-2xl">
             <DonutChart />
           </div>
         </div>
-
         <div className="mt-8 mb-10">
           <VesselTable />
         </div>
