@@ -101,8 +101,13 @@ function SystemAlertsPanel({ alertList }: { alertList: AlertItem[] }) {
 }
 
 export default function DashboardPage() {
-  // State untuk menyimpan keyword pencarian
   const [searchQuery, setSearchQuery] = useState('');
+
+  // Memfilter data kapal ke dalam variabel terpisah
+  const filteredVessels = mapVesselData.filter((v) => 
+    v.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    v.id.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
     <div className="min-h-screen bg-[#0d0415] text-white p-6 font-mono">
@@ -162,106 +167,99 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 items-start"> {/* <-- Diubah ke items-start agar grid kanan kiri berdiri mandiri */}
 
-        {/* Fleet Registry */}
-        <div className="lg:col-span-3 bg-[#1a0b2e] rounded-[2.5rem] border border-white/5 overflow-hidden shadow-2xl">
-          
-          <div className="p-8 flex justify-between items-center">
-            <h2 className="text-[13px] font-extrabold tracking-[0.25em] text-white uppercase">
-              Fleet Registry
-            </h2>
+      {/* Fleet Registry */}
+      <div className="lg:col-span-3 bg-[#1a0b2e] rounded-[2.5rem] border border-white/5 overflow-hidden shadow-2xl flex flex-col h-[520px]">
+        
+        <div className="p-8 flex justify-between items-center shrink-0">
+          <h2 className="text-[13px] font-extrabold tracking-[0.25em] text-white uppercase">
+            Fleet Registry
+          </h2>
 
-            <div className="relative">
-              <MagnifyingGlassIcon className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-600" />
-
-              <input
-                type="text"
-                placeholder="SCAN_SIGNALS..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="bg-black/40 border border-white/10 rounded-xl pl-11 pr-4 py-2.5 text-[10px] w-64 outline-none focus:border-[#bc66ff]/50 font-bold tracking-widest transition-all"
-              />
-            </div>
-          </div>
-
-          {/* Scroll Area */}
-          <div className="max-h-[420px] overflow-y-auto">
-
-            <table className="w-full text-left border-collapse">
-              
-              <thead className="text-[9px] text-gray-500 uppercase tracking-[0.2em] bg-white/5 sticky top-0 z-10 backdrop-blur-xl">
-                <tr>
-                  <th className="px-8 py-4 font-black">Vessel ID</th>
-                  <th className="px-8 py-4 font-black">Status</th>
-                  <th className="px-8 py-4 font-black">Velocity</th>
-                  <th className="px-8 py-4 font-black">Heading</th>
-                </tr>
-              </thead>
-
-              <tbody className="divide-y divide-white/5">
-                {mapVesselData
-                  .filter((v) => 
-                    v.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                    v.id.toLowerCase().includes(searchQuery.toLowerCase())
-                  )
-                  .map((v) => (
-                    <tr
-                      key={v.id}
-                      className="hover:bg-[#bc66ff]/5 transition-all group cursor-pointer"
-                    >
-                      <td className="px-8 py-5">
-                        <div className="font-black text-[11px] group-hover:text-[#bc66ff] transition-colors">
-                          {v.name}
-                        </div>
-
-                        <div className="text-[9px] text-gray-600 font-bold tracking-tighter mt-0.5 uppercase">
-                          ID: {v.id}
-                        </div>
-                      </td>
-
-                      <td className="px-8 py-5">
-                        <div className="flex items-center gap-2">
-                          <div
-                            className={`w-1.5 h-1.5 rounded-full bg-current ${v.statusColor.replace(
-                              "text-",
-                              "bg-"
-                            )} shadow-[0_0_8px_currentColor]`}
-                          />
-
-                          <span
-                            className={`text-[9px] font-black uppercase tracking-tight ${v.statusColor}`}
-                          >
-                            {v.status}
-                          </span>
-                        </div>
-                      </td>
-
-                      <td className="px-8 py-5 text-[10px] font-black text-white">
-                        {v.speed}
-                      </td>
-
-                      <td className="px-8 py-5 text-[10px] text-gray-500 font-bold uppercase truncate max-w-[180px]">
-                        {v.destination}
-                      </td>
-                    </tr>
-                  ))}
-              </tbody>
-
-            </table>
+          <div className="relative">
+            <MagnifyingGlassIcon className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-600" />
+            <input
+              type="text"
+              placeholder="SCAN_SIGNALS..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="bg-black/40 border border-white/10 rounded-xl pl-11 pr-4 py-2.5 text-[10px] w-64 outline-none focus:border-[#bc66ff]/50 font-bold tracking-widest transition-all text-white font-mono"
+            />
           </div>
         </div>
 
+        {/* Header Tabel - SEKARANG MENGGUNAKAN RASIO FR AGAR TERBAGI RATA */}
+        <div className="grid grid-cols-[3fr_2fr_1.5fr_2.5fr] text-[9px] text-gray-500 uppercase tracking-[0.2em] bg-white/5 px-8 py-4 border-b border-white/5 shrink-0 font-black">
+          <div>Vessel ID</div>
+          <div>Status</div>
+          <div>Velocity</div>
+          <div>Heading</div>
+        </div>
+
+        {/* Area Scroll Data */}
+        <div className="flex-grow overflow-y-scroll bg-black/10 [scrollbar-width:thin] [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-white/10 [&::-webkit-scrollbar-thumb]:rounded">
+          <div className="divide-y divide-white/5 w-full">
+            {filteredVessels.length === 0 ? (
+              <div className="px-8 py-16 text-center text-xs text-gray-500 uppercase tracking-widest font-bold">
+                NO_SIGNALS_FOUND...
+              </div>
+            ) : (
+              filteredVessels.map((v) => (
+                /* Isi Baris - RASIOMU HARUS SAMA PERSIS DENGAN HEADER DI ATAS */
+                <div
+                  key={v.id}
+                  className="grid grid-cols-[3fr_2fr_1.5fr_2.5fr] items-center px-8 py-5 hover:bg-[#bc66ff]/5 transition-all group cursor-pointer font-mono text-white"
+                >
+                  {/* Kolom 1: Vessel ID */}
+                  <div className="pr-4 truncate">
+                    <div className="font-black text-[11px] group-hover:text-[#bc66ff] transition-colors truncate">
+                      {v.name}
+                    </div>
+                    <div className="text-[9px] text-gray-600 font-bold tracking-tighter mt-0.5 uppercase">
+                      ID: {v.id}
+                    </div>
+                  </div>
+
+                  {/* Kolom 2: Status */}
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <div
+                        className={`w-1.5 h-1.5 rounded-full bg-current ${v.statusColor.replace(
+                          "text-",
+                          "bg-"
+                        )} shadow-[0_0_8px_currentColor]`}
+                      />
+                      <span className={`text-[9px] font-black uppercase tracking-tight ${v.statusColor}`}>
+                        {v.status}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Kolom 3: Velocity */}
+                  <div className="text-[10px] font-black">
+                    {v.speed}
+                  </div>
+
+                  {/* Kolom 4: Heading */}
+                  <div className="text-[10px] text-gray-400 font-bold uppercase truncate pr-2">
+                    {v.destination}
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
+        </div>
+      </div>
+
         {/* Fleet Performance */}
-        <div className="flex flex-col gap-4">
-          
+        <div className="flex flex-col gap-4 h-[520px]"> {/* <-- Disamakan tingginya agar sejajar sempurna */}
           <h2 className="text-[13px] font-extrabold tracking-[0.25em] text-white uppercase">
             Fleet Performance
           </h2>
 
-          <div className="bg-[#1a0b2e] rounded-[2.5rem] border border-white/5 p-8 flex-grow shadow-lg">
-            
-            <div className="flex items-end justify-between h-40 gap-2 mb-8 px-2 border-b border-white/5 pb-2">
+          <div className="bg-[#1a0b2e] rounded-[2.5rem] border border-white/5 p-8 flex-grow shadow-lg flex flex-col justify-between">
+            <div className="flex items-end justify-between h-40 gap-2 mb-4 px-2 border-b border-white/5 pb-2">
               {[45, 65, 50, 95, 70, 55, 85].map((h, i) => (
                 <div
                   key={i}
@@ -276,12 +274,10 @@ export default function DashboardPage() {
             </div>
 
             <div className="grid grid-cols-1 gap-4">
-              
               <div className="bg-black/40 p-4 rounded-2xl border border-white/5">
                 <p className="text-[8px] text-gray-600 uppercase font-black mb-1 tracking-widest">
                   Efficiency Rate
                 </p>
-
                 <p className="text-xl font-black text-[#bc66ff]">
                   94.2%
                 </p>
@@ -291,15 +287,14 @@ export default function DashboardPage() {
                 <p className="text-[8px] text-gray-600 uppercase font-black mb-1 tracking-widest">
                   Fleet Idle Time
                 </p>
-
                 <p className="text-xl font-black text-white uppercase tracking-tighter">
                   Nominal
                 </p>
               </div>
-
             </div>
           </div>
         </div>
+
       </div>
     </div>
   );
